@@ -1,67 +1,33 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    text-align: center;
-    padding: 20px;
-}
+document.getElementById("uploadInput").addEventListener("change", function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const formData = new FormData();
+        formData.append("image", file);
 
-.container {
-    max-width: 400px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+        fetch("https://api.imgur.com/3/image", {
+            method: "POST",
+            headers: {
+                Authorization: "Client-ID abcd1234"
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const imageUrl = data.data.link;
+                document.getElementById("imagePreview").innerHTML = `<img src="${imageUrl}" alt="Uploaded Image">`;
+                document.getElementById("imageLink").value = imageUrl;
+            } else {
+                Swal.fire("Lỗi", "Không thể tải ảnh lên!", "error");
+            }
+        })
+        .catch(() => Swal.fire("Lỗi", "Lỗi kết nối đến Imgur!", "error"));
+    }
+});
 
-h1 {
-    font-size: 22px;
-    margin-bottom: 15px;
-}
-
-.upload-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background: #28a745;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-.upload-btn:hover {
-    background: #218838;
-}
-
-input[type="file"] {
-    display: none;
-}
-
-#imagePreview img {
-    max-width: 100%;
-    margin-top: 10px;
-    border-radius: 5px;
-}
-
-input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-align: center;
-}
-
-button {
-    background: #007bff;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-
-button:hover {
-    background: #0056b3;
-}
+document.getElementById("copyButton").addEventListener("click", function() {
+    const imageUrl = document.getElementById("imageLink");
+    imageUrl.select();
+    document.execCommand("copy");
+    Swal.fire("Đã sao chép!", "Link ảnh đã được sao chép vào clipboard.", "success");
+});
