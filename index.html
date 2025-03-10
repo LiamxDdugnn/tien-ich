@@ -3,29 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Ảnh Lấy Link - Phạm Tiến Dũng</title>
-    <link rel="icon" type="image/png" href="https://i.imgur.com/KQeJGkX.png" />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Upload Ảnh Lấy Link TienDunxG</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
-    <div class="header">Upload Ảnh Nhanh - Phạm Tiến Dũng</div>
-    <div class="main">
-        <label for="uploadInput" class="custom-file-upload">
-            <i class="fa-light fa-image"></i> Chọn Ảnh
-        </label>
-        <input type="file" id="uploadInput" accept="image/*" class="form-control">
-        <input type="text" id="image" class="form-control dm-sans-input" placeholder="Link Ảnh Sẽ Hiển Thị Tại Đây" readonly>
-        <div id="imagePreview" style="margin-top: 20px;"></div>                           
+    <div class="container">
+        <h1>Upload Ảnh & Lấy Link TienDunxG</h1>
+        <label for="uploadInput" class="upload-btn">Chọn Ảnh</label>
+        <input type="file" id="uploadInput" accept="image/*">
         
-        <div class="text-center">
-            <button id="copyButton" class="btn btn-primary custom-btn" style="margin-top: 10px; display: none;">
-                <i class="fa-duotone fa-solid fa-copy"></i> Sao Chép Link
-            </button>
-        </div>
-        <div id="message"></div>
+        <div id="imagePreview"></div>
+
+        <input type="text" id="imageLink" placeholder="Link Ảnh sẽ hiển thị ở đây" readonly>
+        <button id="copyButton">Sao Chép Link</button>
     </div>
 
     <script src="script.js"></script>
